@@ -1,0 +1,11 @@
+.navContainer {
+  @apply bg-gray-800 p-4;
+}
+
+.navList {
+  @apply flex justify-center space-x-10;
+}
+
+.navLink {
+  @apply text-white;
+}
