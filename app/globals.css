@@ -21,3 +21,6 @@
     text-wrap: balance;
   }
 }
+.icon-small {
+  font-size: 0.75rem;
+}

@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { ReactNode } from "react";
-import styles from "./layout.module.css";
+import UserAuth from "./components/UserAuth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,29 +19,42 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className={styles.navContainer}>
-          <ul className={styles.navList}>
-            <li>
-              <Link href="/" legacyBehavior>
-                <a className={styles.navLink}>Home</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" legacyBehavior>
-                <a className={styles.navLink}>About</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/Services" legacyBehavior>
-                <a className={styles.navLink}>Services</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/not-found" legacyBehavior>
-                <a className={styles.navLink}>ContactUs</a>
-              </Link>
-            </li>
-          </ul>
+        <nav className="flex items-center p-6 bg-gray-700 relative">
+          <div className="flex-grow flex justify-center">
+            <ul className="flex space-x-4 items-center">
+              <li>
+                <Link href="/" legacyBehavior>
+                  <a className="text-white hover:bg-gray-600 p-3 rounded">
+                    Home
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" legacyBehavior>
+                  <a className="text-white hover:bg-gray-600 p-3 rounded">
+                    About
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" legacyBehavior>
+                  <a className="text-white hover:bg-gray-600 p-3 rounded">
+                    Services
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/not-found" legacyBehavior>
+                  <a className="text-white hover:bg-gray-600 p-3 rounded">
+                    Contact Us
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="absolute p-4 right-6">
+            <UserAuth />
+          </div>
         </nav>
         <main>{children}</main>
       </body>

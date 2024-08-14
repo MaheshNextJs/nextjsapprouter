@@ -1,28 +1,35 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ProductCard from "../components/productcard";
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
+
 const HomePage: React.FC = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Samsung Galaxy S23 Ultra",
-      price: 19.99,
-      image: "/images/phone1.jpg",
-    },
-    {
-      id: 2,
-      name: "IPhone 13 Pro Max",
-      price: 29.99,
-      image: "/images/phone2.jpg",
-    },
-    {
-      id: 3,
-      name: "Samsung S23 Ultra",
-      price: 39.99,
-      image: "/images/phone3.jpg",
-    },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/products");
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data: Product[] = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="container mx-auto">
@@ -31,7 +38,7 @@ const HomePage: React.FC = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 m-10">
         {products.map((product) => (
-          <Link legacyBehavior key={product.id} href={`/product/${product.id}`}>
+          <Link key={product.id} href={`/product/${product.id}`} legacyBehavior>
             <a>
               <ProductCard product={product} />
             </a>
