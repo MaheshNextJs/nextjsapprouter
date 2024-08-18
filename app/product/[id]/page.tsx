@@ -1,11 +1,12 @@
 "use client";
-
 import React from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useCart } from "@/app/context/CartContext";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
 
   const product = {
     id,
@@ -15,6 +16,10 @@ const ProductDetail: React.FC = () => {
     description: `This is a detailed description of Product ${id}.`,
   };
 
+  const handleAddToCart = () => {
+    addToCart(); // Use context function
+  };
+
   return (
     <div className="container mx-auto">
       <h1 className="text-center mt-4 font-bold text-lg">{product.name}</h1>
@@ -22,6 +27,12 @@ const ProductDetail: React.FC = () => {
         <img src={product.image} alt={product.name} className="w-1/5" />
         <p className="mt-4">{product.description}</p>
         <p className="mt-2 text-xl font-bold">${product.price.toFixed(2)}</p>
+        <button
+          onClick={handleAddToCart}
+          className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+        >
+          Add to Cart
+        </button>
       </div>
       <div className="w-full flex justify-center mt-5">
         <Link href="/" legacyBehavior>

@@ -3,6 +3,8 @@ import "./globals.css";
 import Link from "next/link";
 import { ReactNode } from "react";
 import UserAuth from "./components/UserAuth";
+import Cart from "./components/Cart";
+import { CartProvider } from "./context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,44 +21,47 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className="flex items-center p-6 bg-gray-700 relative">
-          <div className="flex-grow flex justify-center">
-            <ul className="flex space-x-4 items-center">
-              <li>
-                <Link href="/" legacyBehavior>
-                  <a className="text-white hover:bg-gray-600 p-3 rounded">
-                    Home
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" legacyBehavior>
-                  <a className="text-white hover:bg-gray-600 p-3 rounded">
-                    About
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" legacyBehavior>
-                  <a className="text-white hover:bg-gray-600 p-3 rounded">
-                    Services
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/not-found" legacyBehavior>
-                  <a className="text-white hover:bg-gray-600 p-3 rounded">
-                    Contact Us
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="absolute p-4 right-6">
-            <UserAuth />
-          </div>
-        </nav>
-        <main>{children}</main>
+        <CartProvider>
+          <nav className="flex items-center p-6 bg-gray-700 relative">
+            <div className="flex-grow flex justify-center">
+              <ul className="flex space-x-4 items-center">
+                <li>
+                  <Link href="/" legacyBehavior>
+                    <a className="text-white hover:bg-gray-600 p-3 rounded">
+                      Home
+                    </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" legacyBehavior>
+                    <a className="text-white hover:bg-gray-600 p-3 rounded">
+                      About
+                    </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services" legacyBehavior>
+                    <a className="text-white hover:bg-gray-600 p-3 rounded">
+                      Services
+                    </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/not-found" legacyBehavior>
+                    <a className="text-white hover:bg-gray-600 p-3 rounded">
+                      Contact Us
+                    </a>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className="absolute p-4 right-6 flex items-center">
+              <UserAuth />
+              <Cart />
+            </div>
+          </nav>
+          <main>{children}</main>
+        </CartProvider>
       </body>
     </html>
   );
